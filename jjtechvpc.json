@@ -1,0 +1,96 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "",
+    "Metadata": {
+
+    },
+    "Parameters": {
+
+    },
+    "Mappings": {
+
+    },
+    "Conditions": {
+
+    },
+    "Resources": {
+      "jjtechvpc": {
+        "Type": "AWS::EC2::VPC",
+        "Properties": {
+          "CidrBlock": "10.0.0.0/16",
+          "Tags": [{ "Key": "Name", "Value":  "jjtechvpc" }]
+        }
+      },
+      "jjtechpublicsubnet": {
+        "Type": "AWS::EC2::Subnet",
+        "Properties": {
+          "AvailabilityZone": "us-east-1a",
+          "VpcId": { "Ref": "jjtechvpc" },
+          "CidrBlock": "10.0.0.0/17",
+          "Tags": [{ "Key": "Name", "Value":  "jjtechpublicsubnet" }]
+        }
+      },
+      "jjtechprivatesubnet": {
+        "Type": "AWS::EC2::Subnet",
+        "Properties": {
+          "AvailabilityZone": "us-east-1b",
+          "VpcId": { "Ref": "jjtechvpc" },
+          "CidrBlock": "10.0.128.0/17",
+          "Tags": [{ "Key": "Name", "Value":  "jjtechprivatesubnet" }]
+        }
+      },
+      "jjtechinternetgateway": {
+        "Type": "AWS::EC2::InternetGateway",
+        "Properties": {
+          "Tags": [{ "Key": "Name", "Value":  "jjtechinternetgateway" }]
+        }
+      },
+      "AttachGateway": {
+        "Type": "AWS::EC2::VPCGatewayAttachment",
+        "Properties": {
+          "VpcId": { "Ref": "jjtechvpc" },
+          "InternetGatewayId": { "Ref": "jjtechinternetgateway" }
+        }
+      },
+      "jjtechprivateroutetable": {
+        "Type": "AWS::EC2::RouteTable",
+        "Properties": {
+          "VpcId": { "Ref": "jjtechvpc" },
+          "Tags": [{ "Key": "Name", "Value":  "jjtechprivateroutetable" }]
+        }
+      },
+      "jjtechprivateroutetableassociation": {
+        "Type": "AWS::EC2::SubnetRouteTableAssociation",
+        "Properties": {
+          "SubnetId": { "Ref": "jjtechprivatesubnet" },
+          "RouteTableId": { "Ref": "jjtechprivateroutetable" }
+        }
+      },
+      "jjtechpublicroutetable": {
+        "Type": "AWS::EC2::RouteTable",
+        "Properties": {
+          "VpcId": { "Ref": "jjtechvpc" },
+          "Tags": [{ "Key": "Name", "Value":  "jjtechpublicroutetable" }]
+        }
+      },
+      "jjtechpublicroutetableassociation": {
+        "Type": "AWS::EC2::SubnetRouteTableAssociation",
+        "Properties": {
+          "SubnetId": { "Ref": "jjtechpublicsubnet" },
+          "RouteTableId": { "Ref": "jjtechpublicroutetable" }
+        }
+      },
+      "jjtechpublicinternetroute": {
+        "Type": "AWS::EC2::Route",
+        "Properties": {
+          "RouteTableId": { "Ref": "jjtechpublicroutetable" },
+          "DestinationCidrBlock": "0.0.0.0/0",
+          "GatewayId": { "Ref": "jjtechinternetgateway" }
+        }
+      }
+
+    },
+    "Outputs": {
+
+    }
+}
