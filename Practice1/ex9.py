@@ -1,5 +1,7 @@
 
 days = "Mon Tue Wed Thu Fri Sat Sun"
+
+#Using newline characters
 months = "Jan\nFeb\nMar\nApril\nMay\nJun\nJul\nAug"
 
 print("here are the days:", days) #here are the days: Mon Tue Wed Thu Fri Sat Sun
