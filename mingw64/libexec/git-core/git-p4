@@ -1755,7 +1755,7 @@ class P4Submit(Command, P4UserMap):
 
     def patchRCSKeywords(self, file, pattern):
         # Attempt to zap the RCS keywords in a p4 controlled file matching the given pattern
-        (handle, outFileName) = tempfile.mkstemp(dir='.')
+        (handle, outFileName) = tempfile.mkstemp(dir='')
         try:
             outFile = os.fdopen(handle, "w+")
             inFile = open(file, "r")
