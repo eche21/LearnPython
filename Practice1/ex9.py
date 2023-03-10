@@ -1,4 +1,4 @@
-
+# More printing and using newline characters
 days = "Mon Tue Wed Thu Fri Sat Sun"
 
 #Using newline characters
