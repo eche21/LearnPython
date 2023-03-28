@@ -1,4 +1,5 @@
-#This code truncates and writes to a text file if you want do want to erase the file.
+#This code truncates and writes to a text file
+# if you want to erase the content of  file and write a new content.
 
 from sys import argv
 
@@ -42,6 +43,7 @@ target.close()
 #we're going to erase 'test.txt'.
 #If you don't want that, hit CTRL-C (^C).
 #If you do want that, hit RETURN.
+
 #?
 #Opening the file...
 #Truncating the file. Goodbye!
